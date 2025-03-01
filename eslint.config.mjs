@@ -22,7 +22,7 @@ export default tseslint.config(
         ...globals.node,
         ...globals.jest,
       },
-      ecmaVersion: 5,
+      ecmaVersion: 2022,
       sourceType: 'module',
       parserOptions: {
         projectService: true,
@@ -32,9 +32,26 @@ export default tseslint.config(
   },
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
+      'no-console': 'warn',
+      'no-unused-vars': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'sort-imports': [
+        'error',
+        { ignoreCase: false, ignoreDeclarationSort: true },
+      ],
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      'prettier/prettier': [
+        'error',
+        {
+          tabWidth: 2,
+          semi: true,
+          singleQuote: true,
+          arrowParens: 'avoid',
+          trailingComma: 'all',
+        },
+      ],
     },
   },
 );
