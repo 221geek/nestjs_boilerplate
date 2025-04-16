@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { ElasticService } from './elastic.service';
-import { VaultService } from '../../config/vault.service';
+import { Module } from "@nestjs/common";
+import { ElasticService } from "./elastic.service";
+import { VaultService } from "../../config/vault/vault.service";
 
 @Module({
-  providers: [ElasticService],
-  exports: [ElasticService],
+	providers: [ElasticService],
+	exports: [ElasticService],
 })
 export class ElasticModule {}

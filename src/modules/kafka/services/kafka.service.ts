@@ -1,4 +1,4 @@
-import { VaultService } from "@/config/vault.service";
+import { VaultService } from "@/config/vault/vault.service";
 import {
 	Injectable,
 	OnModuleInit,
@@ -26,23 +26,26 @@ export class KafkaService implements OnModuleInit, OnApplicationShutdown {
 
 	async onModuleInit() {
 		try {
-			const clientId = this.vaultService.getSecret("kafka", "client_id");
+			const clientId = this.vaultService.getSecret("kafka", "KAFKA_CLIENT_ID");
 			const brokerUrl = new URL(
-				this.vaultService.getSecret("kafka", "brokers")
+				this.vaultService.getSecret("kafka", "KAFKA_BROKERS")
 			);
 			const timeout = parseInt(
-				this.vaultService.getSecret("kafka", "connection_timeout"),
+				this.vaultService.getSecret("kafka", "KAFKA_CONNECTION_TIMEOUT"),
 				10
 			);
 			const retryDelay = parseInt(
-				this.vaultService.getSecret("kafka", "retry_delay"),
+				this.vaultService.getSecret("kafka", "KAFKA_RETRY_DELAY"),
 				10
 			);
 			const retryAttempts = parseInt(
-				this.vaultService.getSecret("kafka", "retry_attempts"),
+				this.vaultService.getSecret("kafka", "KAFKA_RETRY_ATTEMPTS"),
 				10
 			);
-			const consumerGroupId = this.vaultService.getSecret("kafka", "group_id");
+			const consumerGroupId = this.vaultService.getSecret(
+				"kafka",
+				"KAFKA_GROUP_ID"
+			);
 
 			const kafkaConfig: KafkaConfig = {
 				clientId,
