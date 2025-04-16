@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { VaultService } from "./config/vault/vault.service";
 import { DatabaseModule } from "./modules/database/database.module";
 import { KafkaModule } from "./modules/kafka/kafka.module";
 import { ElasticModule } from "./modules/elastic/elastic.module";
