@@ -46,23 +46,21 @@ export class VaultService implements OnModuleInit {
 		}
 	}
 
-	private async loadSecrets(modules: string[]) {
+	async loadSecrets(modules: string[]) {
 		for (const name of modules) {
 			if (this.secrets[name]) continue;
 
-			const vaultPath = `${this.secretMountPath}/data/${this.basePath}/${name}`;
+			const secretPath = `${this.basePath}/${name}`;
+			const fullPath = `${this.secretMountPath}/data/${secretPath}`;
 
 			try {
-				const response = await this.vaultClient.request({
-					method: "GET",
-					path: vaultPath,
-				});
+				const response = await this.vaultClient.read(fullPath);
 
-				this.logger.debug(`✅ Loaded secret from ${vaultPath}`);
+				this.logger.debug(`✅ Loaded secret from ${fullPath}`);
 				this.secrets[name] = response.data?.data ?? {};
 			} catch (error: any) {
 				this.logger.warn(
-					`⚠️ Failed to load secret: ${name} (${vaultPath}) — ${error?.response?.statusCode ?? error.message}`
+					`⚠️ Failed to load secret: ${name} (${fullPath}) — ${error?.response?.statusCode ?? error.message}`
 				);
 				throw error;
 			}

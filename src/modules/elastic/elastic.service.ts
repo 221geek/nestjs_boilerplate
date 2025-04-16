@@ -13,22 +13,18 @@ export class ElasticService implements OnModuleInit {
 	) {}
 
 	async onModuleInit() {
-		// const node = this.vaultService.getSecret(
-		// 	"elasticsearch",
-		// 	"ELASTICSEARCH_NODE"
-		// );
-		// const username = this.vaultService.getSecret(
-		// 	"elasticsearch",
-		// 	"ELASTICSEARCH_USERNAME"
-		// );
-		// const password = this.vaultService.getSecret(
-		// 	"elasticsearch",
-		// 	"ELASTICSEARCH_PASSWORD"
-		// );
-		const node = this.configService.get("ELASTICSEARCH_NODE");
-		const username = this.configService.get("ELASTICSEARCH_USERNAME");
-		const password = this.configService.get("ELASTICSEARCH_PASSWORD");
-
+		const node = this.vaultService.getSecret(
+			"elasticsearch",
+			"ELASTICSEARCH_NODE"
+		);
+		const username = this.vaultService.getSecret(
+			"elasticsearch",
+			"ELASTICSEARCH_USERNAME"
+		);
+		const password = this.vaultService.getSecret(
+			"elasticsearch",
+			"ELASTICSEARCH_PASSWORD"
+		);
 		this.client = new Client({
 			node,
 			auth: {

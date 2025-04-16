@@ -7,18 +7,15 @@ import { ConfigService } from "@nestjs/config";
 @Module({
 	imports: [
 		MongooseModule.forRootAsync({
-			useFactory: async (
-				vaultService: VaultService,
-				configService: ConfigService
-			) => {
+			useFactory: async (vaultService: VaultService) => {
+				await vaultService.loadSecrets(["database"]);
 				return {
-					// uri: vaultService.getSecret("database", "DATASOURCE_MONGO_URI"),
-					uri: configService.get<string>("DATASOURCE_MONGO_URI"),
+					uri: vaultService.getSecret("database", "DATASOURCE_MONGO_URI"),
 					useNewUrlParser: true,
 					useUnifiedTopology: true,
 				};
 			},
-			inject: [VaultService, ConfigService],
+			inject: [VaultService],
 		}),
 	],
 	providers: [DatabaseService],
